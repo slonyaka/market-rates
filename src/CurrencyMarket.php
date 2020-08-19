@@ -16,18 +16,17 @@ class CurrencyMarket {
 		$this->collection = $collection;
 	}
 
+	public function getRates()
+	{
+		return $this->collection;
+	}
+
 	public function getAverage()
 	{
 		$process = new Average();
 
 		return $process->count($this->collection);
 
-	}
-
-	public function getPower() {
-
-		$process = new Power();
-		return $process->count($this->collection);
 	}
 
 }
