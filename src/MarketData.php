@@ -14,4 +14,7 @@ class MarketData {
 	public $closePrice;
 	public $highPrice;
 	public $lowPrice;
+
+	public $prev = null;
+	public $next = null;
 }
