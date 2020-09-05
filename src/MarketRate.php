@@ -13,13 +13,13 @@ use Slonyaka\Market\ApiClient\AlphaVantageCurrencyApiClient;
 
 class MarketRate {
 
-	public function getCurrencyRates()
+	public function getCurrencyRates($to, $from, $period)
 	{
 
 		$alphavantage = 'WXSPWXNHFMV1AVZP';
 
 		$client = new AlphaVantageCurrencyApiClient();
-		$prices = $client->setApiKey($alphavantage)->pair('usd', 'eur')->setInterval('5min')->history();
+		$prices = $client->setApiKey($alphavantage)->pair($to, $from)->setInterval($period)->history();
 
 		return new CurrencyMarket($prices);
 	}
