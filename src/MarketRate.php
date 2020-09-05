@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 19.08.2020
- * Time: 21:43
- */
 
 namespace Slonyaka\Market;
 
@@ -13,13 +7,17 @@ use Slonyaka\Market\ApiClient\AlphaVantageCurrencyApiClient;
 
 class MarketRate {
 
+	private $apiKey;
+
+	public function setApiKey(string $apiKey)
+	{
+		$this->apiKey = $apiKey;
+	}
+
 	public function getCurrencyRates($to, $from, $period)
 	{
-
-		$alphavantage = 'WXSPWXNHFMV1AVZP';
-
 		$client = new AlphaVantageCurrencyApiClient();
-		$prices = $client->setApiKey($alphavantage)->pair($to, $from)->setInterval($period)->history();
+		$prices = $client->setApiKey($this->apiKey)->pair($to, $from)->setInterval($period)->history();
 
 		return new CurrencyMarket($prices);
 	}
