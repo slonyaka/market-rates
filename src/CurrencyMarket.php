@@ -4,9 +4,7 @@
 namespace Slonyaka\Market;
 
 
-
 use Slonyaka\Market\Process\Average;
-use Slonyaka\Market\Process\Power;
 
 class CurrencyMarket {
 
