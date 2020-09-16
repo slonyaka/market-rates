@@ -12,6 +12,8 @@ class MarketRate {
 	public function setApiKey(string $apiKey)
 	{
 		$this->apiKey = $apiKey;
+
+		return $this;
 	}
 
 	public function getCurrencyRates($to, $from, $period)
