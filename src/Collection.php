@@ -35,6 +35,17 @@ class Collection {
 		}
 	}
 
+	public function readFromEnd()
+	{
+		$item = $this->last;
+
+		while($item) {
+			$current = $item;
+			$item = $item->prev;
+			yield $current;
+		}
+	}
+
 	public function count(){
 		return count($this->collection);
 	}
