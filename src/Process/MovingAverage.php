@@ -6,7 +6,7 @@ namespace Slonyaka\Market\Process;
 
 use Slonyaka\Market\Collection;
 
-class Average {
+class MovingAverage {
 
 	public function count(Collection $collection)
 	{

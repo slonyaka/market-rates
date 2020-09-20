@@ -3,11 +3,9 @@
 namespace Slonyaka\Market;
 
 
-use Slonyaka\Market\ApiClient\AlphaVantageCurrencyApiClient;
+abstract class MarketRate {
 
-class MarketRate {
-
-	private $apiKey;
+	protected $apiKey;
 
 	public function setApiKey(string $apiKey)
 	{
@@ -16,17 +14,5 @@ class MarketRate {
 		return $this;
 	}
 
-	public function getCurrencyRates($to, $from, $period)
-	{
-		$client = new AlphaVantageCurrencyApiClient();
-		$prices = $client->setApiKey($this->apiKey)->pair($to, $from)->setInterval($period)->history();
-
-		return new CurrencyMarket($prices);
-	}
-
-	public function getStockRates()
-	{
-
-	}
-
+	abstract public function getRates(string $to,string $from,string $period): Collection;
 }
