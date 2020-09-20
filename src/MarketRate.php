@@ -23,10 +23,4 @@ class MarketRate {
 
 		return new CurrencyMarket($prices);
 	}
-
-	public function getStockRates()
-	{
-
-	}
-
 }
