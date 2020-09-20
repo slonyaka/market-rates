@@ -16,11 +16,12 @@ class Collection {
 	{
 		if (!count($this->collection)) {
 			$this->first = $marketData;
-			$this->last = $marketData;
 		}
 
-		$this->last->next = $marketData;
-		$marketData->prev = $this->last;
+		if ($this->last) {
+			$this->last->next = $marketData;
+			$marketData->prev = $this->last;
+		}
 
 		$this->last = $marketData;
 
