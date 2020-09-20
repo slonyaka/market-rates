@@ -1,6 +1,7 @@
 {
     "name": "slonyaka/market-rates",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Sergey Slonchakov",
