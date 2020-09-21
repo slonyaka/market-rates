@@ -51,6 +51,9 @@ class Collection {
 		return count($this->collection);
 	}
 
+    /**
+     * TODO these methods must have logic how to compare items in Collection
+     */
 	public function min()
     {
         return min($this->collection);
