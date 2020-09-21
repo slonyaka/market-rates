@@ -12,9 +12,10 @@ getRates method returns a Collection of MarketData instances
 
 
 ```
-$marketRate = new \Slonyaka\Market\MarketRate();
-$market = $marketRate->setApiKey('alpha_vantage_api_key')->getCurrencyRates('usd', 'eur', '5min');
-$item = $market->getRates()->first;
+
+$rates = new Slonyaka\Market\CurrencyRate();
+$rates->setApiKey('alpha_vantage_api_key');
+$data = $rates->getRates('usd', 'eur', '5min');
 
 ```
 
