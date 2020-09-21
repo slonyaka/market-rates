@@ -46,7 +46,18 @@ class Collection {
 		}
 	}
 
-	public function count(){
+	public function count()
+    {
 		return count($this->collection);
 	}
+
+	public function min()
+    {
+        return min($this->collection);
+    }
+
+    public function max()
+    {
+        return max($this->collection);
+    }
 }
