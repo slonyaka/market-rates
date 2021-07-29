@@ -4,26 +4,41 @@ namespace Slonyaka\Market\ApiClient;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Slonyaka\Market\Collection;
 
+/**
+ * Class CurrencyApiClient
+ * @package Slonyaka\Market\ApiClient
+ */
 abstract class CurrencyApiClient implements ApiClient {
 
-	protected $apiKey;
+    /**
+     * @var string
+     */
+    protected $apiKey;
 
-	public function setApiKey(string $apiKey): self
-	{
-		$this->apiKey = $apiKey;
+    /**
+     * CurrencyApiClient constructor.
+     * @param string $apiKey
+     */
+    public function __construct(string $apiKey)
+    {
+        $this->apiKey = $apiKey;
+    }
 
-		return $this;
-	}
-
-	protected function request($url)
+    /**
+     * @param string $url
+     * @return array|bool|float|int|object|string|null
+     * @throws GuzzleException
+     */
+    protected function request(string $url)
 	{
 		$client = new Client();
 
 		try{
 			$response = $client->get($url);
-		} catch (\Exception $e)
+		} catch (GuzzleException $e)
 		{
 			die( $e->getMessage());
 		}
@@ -35,10 +50,33 @@ abstract class CurrencyApiClient implements ApiClient {
 		return [];
 	}
 
-	abstract public function pair(string $from, string $to): self;
-	abstract public function setPeriod(string $from): self;
-	abstract public function setInterval(string $from): self;
-	abstract public function latest(): Collection;
-	abstract public function history(): Collection;
+    /**
+     * @param string $from
+     * @param string $to
+     * @return $this
+     */
+    abstract public function pair(string $to, string $from): self;
+
+    /**
+     * @param string $from
+     * @return $this
+     */
+    abstract public function setPeriod(string $from): self;
+
+    /**
+     * @param string $from
+     * @return $this
+     */
+    abstract public function setInterval(string $from): self;
+
+    /**
+     * @return Collection
+     */
+    abstract public function latest(): Collection;
+
+    /**
+     * @return Collection
+     */
+    abstract public function history(): Collection;
 
 }

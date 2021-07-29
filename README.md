@@ -9,13 +9,17 @@ comparing to second one
 
 
 getRates method returns a Collection of MarketData instances
-
+currently works with https://www.alphavantage.co
+and needs API Key from this service
 
 ```
 
-$rates = new Slonyaka\Market\CurrencyRate();
-$rates->setApiKey('alpha_vantage_api_key');
-$data = $rates->getRates('usd', 'eur', '5min');
+$rates = Slonyaka\Market\CurrencyRateFactory::make('alpha_vantage_api_key');
+$ratesCollection = $rates->getRates('usd', 'eur', '5min');
+
+foreach ($ratesCollection->read() as $rate) {
+    echo $rate->lowPrice;
+}
 
 ```
 

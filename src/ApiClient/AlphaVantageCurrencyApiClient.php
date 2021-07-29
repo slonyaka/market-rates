@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace Slonyaka\Market\ApiClient;
 
 
+use GuzzleHttp\Exception\GuzzleException;
 use Slonyaka\Market\Collection;
 use Slonyaka\Market\MarketData;
 
+/**
+ * Class AlphaVantageCurrencyApiClient
+ * @package Slonyaka\Market\ApiClient
+ */
 class AlphaVantageCurrencyApiClient extends CurrencyApiClient {
 
 	const ENDPOINT = 'https://www.alphavantage.co/query';
@@ -23,42 +28,50 @@ class AlphaVantageCurrencyApiClient extends CurrencyApiClient {
 	const INTERVAL_DAILY = 'FX_DAILY';
 	const INTERVAL_WEEKLY = 'FX_WEEKLY';
 
-	private $currencyFrom;
-	private $currencyTo;
+    private $to;
+    private $from;
 
 	private $period = self::INTERVAL_INTRADAY;
 	private $interval = self::PERIOD_30_MIN;
 
-	public function pair(string $currencyTo, string $currencyFrom): CurrencyApiClient
+    /**
+     * @param string $to
+     * @param string $from
+     * @return CurrencyApiClient
+     */
+    public function pair(string $to, string $from): CurrencyApiClient
 	{
-		$this->currencyTo = strtoupper($currencyTo);
-		$this->currencyFrom = strtoupper($currencyFrom);
+        $this->to = strtoupper($to);
+        $this->from = strtoupper($from);
 
 		return $this;
 	}
 
-	public function setPeriod(string $value): CurrencyApiClient
+	public function setPeriod(string $from): CurrencyApiClient
 	{
-		$this->period = $value;
+		$this->period = $from;
 
 		return $this;
 	}
 
-	public function setInterval(string $value): CurrencyApiClient
+	public function setInterval(string $from): CurrencyApiClient
 	{
-		$this->interval = $value;
+		$this->interval = $from;
 
 		return $this;
 	}
 
-	public function latest(): Collection
+    /**
+     * @throws GuzzleException
+     */
+    public function latest(): Collection
 	{
 		$collection = new Collection();
 
 		$url  = self::ENDPOINT;
 		$url .= '?function='. self::INTERVAL_INTRADAY;
-		$url .= '&from_currency='. $this->currencyFrom;
-		$url .= '&to_currency='. $this->currencyTo;
+		$url .= '&from_currency='. $this->from;
+		$url .= '&to_currency='. $this->to;
 		$url .= '&apikey='. $this->apiKey;
 
 		$data = $this->request($url);
@@ -79,7 +92,10 @@ class AlphaVantageCurrencyApiClient extends CurrencyApiClient {
 		return $collection;
 	}
 
-	public function history(): Collection
+    /**
+     * @throws GuzzleException
+     */
+    public function history(): Collection
 	{
 		$collection = new Collection();
 
@@ -87,8 +103,8 @@ class AlphaVantageCurrencyApiClient extends CurrencyApiClient {
 		$url .= '?function='. $this->period;
 		$url .= '&apikey='. $this->apiKey;
 		$url .= '&interval='. $this->interval;
-		$url .= '&to_symbol='. $this->currencyTo;
-		$url .= '&from_symbol='. $this->currencyFrom;
+		$url .= '&to_symbol='. $this->to;
+		$url .= '&from_symbol='. $this->from;
 
 		$data = $this->request($url);
 
@@ -97,8 +113,8 @@ class AlphaVantageCurrencyApiClient extends CurrencyApiClient {
 		foreach ($data[$key] as $timestamp => $value) {
 			$marketData = new MarketData();
 
-			$marketData->code = $this->currencyTo;
-			$marketData->base = $this->currencyFrom;
+			$marketData->code = $this->to;
+			$marketData->base = $this->from;
 			$marketData->time = $timestamp;
 			$marketData->openPrice = $value["1. open"];
 			$marketData->closePrice = $value["4. close"];

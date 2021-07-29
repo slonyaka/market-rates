@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Slonyaka\Market;
 
 
+use Generator;
+
 class Collection {
 
 	private $collection = [];
@@ -28,15 +30,15 @@ class Collection {
 		$this->collection[] = $marketData;
 	}
 
-	public function read()
-	{
+	public function read(): Generator
+    {
 		foreach($this->collection as $marketData) {
 			yield $marketData;
 		}
 	}
 
-	public function readFromEnd()
-	{
+	public function readFromEnd(): Generator
+    {
 		$item = $this->last;
 
 		while($item) {
@@ -46,21 +48,8 @@ class Collection {
 		}
 	}
 
-	public function count()
+	public function count(): int
     {
 		return count($this->collection);
 	}
-
-    /**
-     * TODO these methods must have logic how to compare items in Collection
-     */
-	public function min()
-    {
-        return min($this->collection);
-    }
-
-    public function max()
-    {
-        return max($this->collection);
-    }
 }

@@ -1,21 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 20.09.2020
- * Time: 16:03
- */
 
 namespace Slonyaka\Market;
 
 
-use Slonyaka\Market\ApiClient\AlphaVantageCurrencyApiClient;
-
+/**
+ * Class CurrencyRate
+ * @package Slonyaka\Market
+ */
 class CurrencyRate extends MarketRate {
 
-	public function getRates(string $to,string $from,string $period): Collection
+    /**
+     * @param string $to
+     * @param string $from
+     * @param string $period
+     * @return Collection
+     */
+    public function getRates(string $to, string $from, string $period): Collection
 	{
-		$client = new AlphaVantageCurrencyApiClient();
-		return $client->setApiKey($this->apiKey)->pair($to, $from)->setInterval($period)->history();
+		return $this->apiClient->pair($to, $from)->setInterval($period)->history();
 	}
 }
