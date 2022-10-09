@@ -39,7 +39,7 @@ class Collection
         }
     }
 
-    public function readFromEnd(): Generator
+    public function reverseRead(): Generator
     {
         $item = $this->last;
 
