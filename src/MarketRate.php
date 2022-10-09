@@ -7,9 +7,11 @@ use Slonyaka\Market\ApiClient\ApiClient;
 
 /**
  * Class MarketRate
+ *
  * @package Slonyaka\Market
  */
-abstract class MarketRate {
+abstract class MarketRate
+{
 
     /**
      * @var ApiClient
@@ -18,6 +20,7 @@ abstract class MarketRate {
 
     /**
      * MarketRate constructor.
+     *
      * @param ApiClient $apiClient
      */
     public function __construct(ApiClient $apiClient)
@@ -29,7 +32,13 @@ abstract class MarketRate {
      * @param string $to
      * @param string $from
      * @param string $period
+     *
      * @return Collection
      */
-    abstract public function getRates(string $to,string $from,string $period): Collection;
+    abstract public function getRates(
+      string $to,
+      string $from,
+      string $period
+    ): Collection;
+
 }

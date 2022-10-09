@@ -3,18 +3,31 @@
 namespace Slonyaka\Market;
 
 
-class MarketData {
-	public $code;
-	public $base;
-	public $price;
-	public $time;
-	public $bidPrice;
-	public $askPrice;
-	public $openPrice;
-	public $closePrice;
-	public $highPrice;
-	public $lowPrice;
+class MarketData
+{
 
-	public $prev = null;
-	public $next = null;
+    public $code;
+
+    public $base;
+
+    public $price;
+
+    public $time;
+
+    public $bidPrice;
+
+    public $askPrice;
+
+    public $openPrice;
+
+    public $closePrice;
+
+    public $highPrice;
+
+    public $lowPrice;
+
+    public $prev = null;
+
+    public $next = null;
+
 }

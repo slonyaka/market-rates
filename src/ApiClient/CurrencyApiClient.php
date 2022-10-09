@@ -9,9 +9,11 @@ use Slonyaka\Market\Collection;
 
 /**
  * Class CurrencyApiClient
+ *
  * @package Slonyaka\Market\ApiClient
  */
-abstract class CurrencyApiClient implements ApiClient {
+abstract class CurrencyApiClient implements ApiClient
+{
 
     /**
      * @var string
@@ -20,6 +22,7 @@ abstract class CurrencyApiClient implements ApiClient {
 
     /**
      * CurrencyApiClient constructor.
+     *
      * @param string $apiKey
      */
     public function __construct(string $apiKey)
@@ -29,42 +32,46 @@ abstract class CurrencyApiClient implements ApiClient {
 
     /**
      * @param string $url
+     *
      * @return array|bool|float|int|object|string|null
      * @throws GuzzleException
      */
     protected function request(string $url)
-	{
-		$client = new Client();
+    {
+        $client = new Client();
 
-		try{
-			$response = $client->get($url);
-		} catch (GuzzleException $e)
-		{
-			die( $e->getMessage());
-		}
+        try {
+            $response = $client->get($url);
+        } catch (GuzzleException $e) {
+            die($e->getMessage());
+        }
 
-		if ($response->getStatusCode() === 200) {
-			return \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
-		}
+        if ($response->getStatusCode() === 200) {
+            return \GuzzleHttp\json_decode($response->getBody()->getContents(),
+              true);
+        }
 
-		return [];
-	}
+        return [];
+    }
 
     /**
      * @param string $from
      * @param string $to
+     *
      * @return $this
      */
     abstract public function pair(string $to, string $from): self;
 
     /**
      * @param string $from
+     *
      * @return $this
      */
     abstract public function setPeriod(string $from): self;
 
     /**
      * @param string $from
+     *
      * @return $this
      */
     abstract public function setInterval(string $from): self;
